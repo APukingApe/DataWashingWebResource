@@ -6,12 +6,17 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch('user_comments.json') 
             .then(response => response.json()) 
             .then(data => {
-                const comment = data[commentId]; 
+                const fullComment = data[commentId];
                 const commentElement = document.getElementById('comment');
-                if (comment) {
-                    commentElement.textContent = comment; 
+                if (fullComment) {
+                    const subscriptionMatch = fullComment.match(/subscription period: ([^;]*)/);
+                    let displayText = 'Subscription Period: Not Specified';
+                    if (subscriptionMatch && subscriptionMatch[1]) {
+                        displayText = `Subscription Period: ${subscriptionMatch[1]}`;
+                    }
+                    commentElement.textContent = displayText;
                 } else {
-                    commentElement.textContent = 'Did not find comment'; 
+                    commentElement.textContent = 'Did not find comment';
                 }
             })
             .catch(error => {
