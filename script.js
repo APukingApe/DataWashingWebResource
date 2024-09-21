@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (comment) {
                     commentElement.textContent = comment;  
                 } else {
-                    commentElement.textContent = 'Did not find comment'; 
+                    commentElement.textContent = ''; 
                 }
             })
             .catch(error => {
