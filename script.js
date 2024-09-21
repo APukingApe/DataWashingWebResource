@@ -3,20 +3,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const commentId = params.get('id'); 
 
     if (commentId) {
-        fetch('user_comments.json') 
-            .then(response => response.json()) 
+        fetch('user_comments.json')
+            .then(response => response.json())
             .then(data => {
-                const fullComment = data[commentId];
+                const comment = data[commentId]; 
                 const commentElement = document.getElementById('comment');
-                if (fullComment) {
-                    const subscriptionMatch = fullComment.match(/subscription period: ([^;]*)/);
-                    let displayText = 'Subscription Period: Not Specified';
-                    if (subscriptionMatch && subscriptionMatch[1]) {
-                        displayText = `Subscription Period: ${subscriptionMatch[1]}`;
-                    }
-                    commentElement.textContent = displayText;
+                if (comment) {
+                    commentElement.textContent = comment;  
                 } else {
-                    commentElement.textContent = 'Did not find comment';
+                    commentElement.textContent = 'Did not find comment'; 
                 }
             })
             .catch(error => {
@@ -24,6 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('comment').textContent = 'Error fetching comment';
             });
     } else {
-        document.getElementById('comment').textContent = 'No id';
+        document.getElementById('comment').textContent = 'No id provided in the URL';
     }
 });
